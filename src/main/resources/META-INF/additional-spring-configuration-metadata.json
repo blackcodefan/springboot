@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "email.rethrowIfNotRetryable",
+      "type": "java.lang.String",
+      "description": "If an email is not retryable throw errror."
+    }
+  ]
+}

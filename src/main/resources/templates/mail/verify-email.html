@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Welcome to 12CO</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <style>
+
+    </style>
+</head>
+<body>
+<main role="main" class="container">
+    <h2>
+        <!--/*@thymesVar id="firstName" type="String"*/-->
+        <span th:text="#{email.header.introduction(${firstName})}"></span>
+    </h2>
+
+    <span th:text="#{email.confirmation.body}" class="row"></span>
+    <!--/*@thymesVar id="activationCode" type="String"*/-->
+    <mark><span th:text="${activationCode}" class="row text-center"></span></mark>
+</main>
+<div th:insert="footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>12Co S.A. Support</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<main role="main" class="container">
+    <div class="starter-template">
+        <h2>
+            <!--/*@thymesVar id="spaceName" type="String"*/-->
+            <span th:text="#{email.header.introduction(${spaceName})}"></span>
+        </h2>
+        <!--/*@thymesVar id="activationCode" type="String"*/-->
+        <span th:text="Please check your box ${spaceSerialId}; there is not room left."></span>
+    </div>
+</main>
+<div th:insert="footer :: footer"></div>
+</body>
+</html>

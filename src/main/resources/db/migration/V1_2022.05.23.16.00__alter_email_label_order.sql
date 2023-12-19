@@ -1,0 +1,1 @@
+ALTER TABLE email_label_order RENAME COLUMN "order" TO label_order;

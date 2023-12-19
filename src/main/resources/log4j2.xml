@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--monitor the changes done in configuration file at evry 30 seconds-->
+<Configuration status="DEBUG" monitorInterval="30">
+    <Appenders>
+        <!--        <File name="LINKRYPT1" fileName="${catalina.base}/logs/linkrypt-dev.log" append="true">
+                    <PatternLayout pattern="[%p] [%t] [%d] %c %M - %m%n"/>
+                </File>-->
+        <RollingFile name="linkrypt" fileName="${sys:catalina.home}/logs/linkrypt-dev.log"
+                     filePattern="${sys:catalina.home}/logs/$${date:yyyy-MM}/linkrypt-dev-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%p] [%t] [%d] %c %M - %m%n</Pattern>
+                <!--<Pattern>"%d{HH:mm:ss.SSS} [%t] %highlight{%level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue} - %msg%n" </Pattern>-->
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <!--<TimeBasedTriggeringPolicy />-->
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <!--<DefaultRolloverStrategy max="4" />-->
+        </RollingFile>
+        <RollingFile name="linkrypt-db" fileName="${sys:catalina.home}/logs/linkrypt-dev-db.log"
+                     filePattern="${sys:catalina.home}/logs/$${date:yyyy-MM}/linkrypt-dev-db-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>[%p] [%t] [%d] %c %M - %m%n</Pattern>
+                <!--<Pattern>"%d{HH:mm:ss.SSS} [%t] %highlight{%level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue} - %msg%n" </Pattern>-->
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <!--<TimeBasedTriggeringPolicy />-->
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="lkt-json" fileName="${sys:catalina.home}/logs/linkrypt-dev.log"
+                     filePattern="${sys:catalina.home}/logs/$${date:yyyy-MM}/linkrypt-dev-%d{MM-dd-yyyy}-%i.log.gz">
+            <JsonLayout complete="false" compact="true">
+                <!--                <KeyValuePair key="StudytonightField" value="studytonightValue"/>-->
+            </JsonLayout>
+        </RollingFile>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%p] [%t] [%d] %c %M - %m%n"/>
+            <!--<Pattern>"%d{HH:mm:ss.SSS} [%t] %highlight{%level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, DEBUG=blue} - %msg%n" </Pattern>-->
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!--this is mandatory; if not provided, the default will be configurated to the Console, with error level-->
+        <Root level="debug">
+            <AppenderRef ref="console"/>
+        </Root>
+        <!--additivity = false - anything logged in the parent (Root) will not be logged here-->
+        <Logger name="lkt" level="debug" additivity="true">
+            <appender-ref ref="linkrypt"/>
+        </Logger>
+        <!--Log everything (a lot of information, but very useful for troubleshooting)-->
+        <Logger name="org.hibernate" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log all SQL DML statements as they are executed-->
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log stats (time, #rows) for each query executed-->
+        <Logger name="org.hibernate.stat" level="debug" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log all JDBC parameters-->
+        <Logger name="org.hibernate.type" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log all SQL DDL statements as they are executed-->
+        <Logger name="org.hibernate.tool.hbm2ddl" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log the state of all entities (max 20 entities) associated with the session at flush time-->
+        <Logger name="org.hibernate.pretty" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log all second-level cache activityorg.hibernate.cache-->
+        <Logger name="org.hibernate.cache" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log transaction related activity-->
+        <Logger name="org.hibernate.transaction" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log all JDBC resource acquisition-->
+        <Logger name="org.hibernate.jdbc" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log HQL and SQL ASTs during query parsing-->
+        <Logger name="org.hibernate.hql.ast.AST" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log all JAAS authorization requests-->
+        <Logger name="org.hibernate.secure" level="info" additivity="false">
+            <appender-ref ref="linkrypt-db"/>
+        </Logger>
+        <!--Log Spring framework errors-->
+        <Logger name="org.springframework.transaction.interceptor" level="info" additivity="false">
+            <appender-ref ref="linkrypt"/>
+        </Logger>
+        <Logger name="org.springframework" level="warn" additivity="false">
+            <appender-ref ref="linkrypt"/>
+        </Logger>
+        <Logger name="springfox" level="warn" additivity="false">
+            <appender-ref ref="linkrypt"/>
+        </Logger>
+
+        <Logger name="lkt" level="debug" additivity="false">
+            <AppenderRef ref="lkt-json"/>
+        </Logger>
+    </Loggers>
+</Configuration>

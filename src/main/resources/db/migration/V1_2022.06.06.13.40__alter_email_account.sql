@@ -1,0 +1,1 @@
+ALTER TABLE email_account ADD signature text;

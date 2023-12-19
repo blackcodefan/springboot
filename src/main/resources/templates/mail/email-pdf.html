@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="${lang}" dir="${dir}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"${subject}"</title>
+    <link th:href="@{styles/mail/email-pdf.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <header class="logo-container">
+        <img th:href="@{static/logo-12co.png}" alt="12Co logo"/>
+        <img th:src="@{${avatar}}" alt="Avatar image"/>
+    </header>
+
+    <!-- email members details -->
+    <div>
+        <ul style="list-style-type:none;">
+            <li>
+                <p>From</p>
+                <p style="margin-left: 10px;" th:text="${sender}"></p>
+            </li>
+            <li>
+                <p>To</p>
+                <p style="margin-left: 10px;" th:text="${to_list}"></p>
+            </li>
+            <li>
+                <p>CC</p>
+                <p style="margin-left: 10px;" th:text="${cc_list}"></p>
+            </li>
+            <li>
+                <p>BCC</p>
+                <p style="margin-left: 10px;" th:text="${bcc_list}"></p>
+            </li>
+            <li>
+                <p>Date</p>
+                <p style="margin-left: 10px;" th:text="${date_time}"></p>
+            </li>
+            <li>
+                <p>Subject</p>
+                <p style="margin-left: 10px;" th:text="${subject}"></p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- content -->
+    <div class="body-content">
+        <p th:utext="${content}">
+        </p>
+    </div>
+
+    <footer>
+        <div class="signature">
+            <ul>
+                <li>
+                    <p>Signature</p>
+                    <p style="margin-left: 10px;" th:text="${account_name}"></p>
+                </li>
+            </ul>
+            <p style="padding-left: 40px; margin-top: 0px;" th:text="${account_signature}"></p>
+        </div>
+        <div class="signature">
+            <ul>
+                <li>
+                    <p>Signature</p>
+                    <p style="margin-left: 10px;">@12CO</p>
+                </li>
+            </ul>
+            <p style="padding-left: 40px;margin-top: 0px;" th:text="${twcoco_signature}"></p>
+        </div>        
+    </footer>
+</body>
+
+</html>
